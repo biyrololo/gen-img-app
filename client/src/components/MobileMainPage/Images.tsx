@@ -70,7 +70,6 @@ export default function Images(){
             // console.log(e);
 
             if(!hasMoreImages || isRequesting){
-                setRQ(true);
                 return;
             }
             const {scrollTop, clientHeight, scrollHeight} = e.target as HTMLDivElement;
@@ -78,6 +77,7 @@ export default function Images(){
             // console.log(scrollTop, clientHeight, scrollHeight);
 
             if(scrollTop + clientHeight + 500 >= scrollHeight){
+                setRQ(true);
                 loadMoreImages();
             }
         }}

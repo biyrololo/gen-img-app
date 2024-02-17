@@ -1,6 +1,12 @@
 #generate-image-form{
     flex-basis: 400px;
     flex-shrink: 0;
+    max-height: 100dvh;
+    overflow-y: auto;
+}
+
+#generate-image-form::-webkit-scrollbar{
+    display: none;
 }
 
 @media (max-width: 1200px){
