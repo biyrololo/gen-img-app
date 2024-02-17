@@ -1,7 +1,7 @@
 import os
 
-# DATABASE_URL = os.getenv("DATABASE_URL")
-DATABASE_URL = "postgresql://postgres:rootroot@localhost:5433/gen-images-site"
+DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASE_URL = "postgresql://postgres:rootroot@localhost:5433/gen-images-site"
 
 from sqlalchemy import create_engine, text, Column, Integer, String
 from sqlalchemy.orm import sessionmaker
