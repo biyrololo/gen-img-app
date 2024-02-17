@@ -1,0 +1,49 @@
+#generate-image-form{
+    flex-basis: 400px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 1200px){
+    #generate-image-form{
+        flex-basis: 200px;
+    }
+    
+}
+
+#generate-image-form > button,
+#generate-image-form > section > button{
+    height: 50px !important;
+    color: white;
+}
+
+#generate-image-form #loader{
+    position: relative;
+}
+
+#generate-image-form img{
+    width: 100%;
+}
+
+#generate-image-form #loader #progress{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+#generate-image-form *::-webkit-scrollbar{
+    position: relative;
+    cursor: pointer !important;
+    width: 5px;
+    padding: 1px;
+}
+
+#generate-image-form *::-webkit-scrollbar-track{
+    background: #1e1e1e;
+}
+
+#generate-image-form *::-webkit-scrollbar-thumb{
+    background: #04BAE1;
+    padding: 1px;
+    cursor: default;
+}

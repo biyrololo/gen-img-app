@@ -1,0 +1,59 @@
+#workspace{
+    max-height: 100dvh;
+}
+
+#workspace #result-image{
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+#workspace #loader{
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+#workspace #loader #progress{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}
+
+#workspace button{
+    color: white;
+}
+
+#workspace section button{
+    height: 30px !important;
+}
+
+#workspace button{
+    height: 50px !important;
+}
+
+#workspace *::-webkit-scrollbar{
+    position: relative;
+    cursor: pointer !important;
+    width: 5px;
+    padding: 1px;
+}
+
+#workspace *::-webkit-scrollbar-track{
+    background: #1e1e1e;
+}
+
+#workspace *::-webkit-scrollbar-thumb{
+    background: #04BAE1;
+    padding: 1px;
+    cursor: default;
+}
+
+.MuiAutocomplete-endAdornment{
+    top: 1px !important;
+}
+
+#workspace img{
+    width: 100%;
+}

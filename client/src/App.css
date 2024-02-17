@@ -1,0 +1,11 @@
+body{
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-y: hidden;
+    background-color: #181818 !important;
+}
+
+.main-gradient{
+    background: linear-gradient(to right, #00f260, #0575e6);
+}
