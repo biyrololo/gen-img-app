@@ -119,7 +119,10 @@ def get_images_endpoint(start: int = 0, length: int = 0, api_key: HTTPAuthorizat
     if api_key != API_KEY:
         raise HTTPException(status_code=401, detail="Invalid API key")
 
+
     images = get_all_images(db)
+    if len(images) == 0:
+        return []
     # images = images[:5]
     # images = images[:16] + images[18:]
     images = images[::-1]
