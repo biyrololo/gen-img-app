@@ -4,6 +4,7 @@ import './Images.css';
 import UpdateContext from "components/MainPage/UpdaterContext";
 
 import Image from "./Image";
+import { SkeletonImage } from "components/MainPage/Image";
 import getColumsCount from "components/MainPage/GetColumnsCount";
 import useWindowSize from "hooks/useWindowSize";
 
@@ -28,6 +29,7 @@ export default function Images(){
     const {update} = useContext(UpdateContext);
 
     const [images, setImages] = useState<ResponseImage[]>([]);
+    const [isRequesting, setRQ] = useState(false);
     const [hasMoreImages, setHMI] = useState(true);
 
     function loadMoreImages(){
@@ -39,10 +41,12 @@ export default function Images(){
             console.log(err);
             setHMI(false);
         })
+        .finally(()=>{setRQ(false)})
     }
 
     useEffect(
         ()=>{
+            setRQ(true);
             const cancelToken = axios.CancelToken.source();
 
             axios.get('images?start=0&length=16', {cancelToken: cancelToken.token})
@@ -52,6 +56,7 @@ export default function Images(){
             .catch((err)=>{
                 console.log(err);
             })
+            .finally(()=>{setRQ(false)})
 
             return ()=>cancelToken.cancel();
         },
@@ -64,14 +69,15 @@ export default function Images(){
 
             // console.log(e);
 
-            if(!hasMoreImages){
+            if(!hasMoreImages || isRequesting){
+                setRQ(true);
                 return;
             }
             const {scrollTop, clientHeight, scrollHeight} = e.target as HTMLDivElement;
 
             // console.log(scrollTop, clientHeight, scrollHeight);
 
-            if(scrollTop + clientHeight + 70 >= scrollHeight){
+            if(scrollTop + clientHeight + 500 >= scrollHeight){
                 loadMoreImages();
             }
         }}
@@ -86,6 +92,9 @@ export default function Images(){
                                         <Image key={`image-${imageIndex}`} {...image} />
                                     )
                                 })
+                            }
+                            {
+                                isRequesting && <SkeletonImage />
                             }
                             <span className="empty-image"></span>
                         </div>

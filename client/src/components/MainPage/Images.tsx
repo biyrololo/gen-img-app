@@ -3,9 +3,10 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import './Images.css';
 import UpdateContext from "./UpdaterContext";
 
-import Image from "./Image";
+import Image, { SkeletonImage } from "./Image";
 import getColumsCount from "./GetColumnsCount";
 import useWindowSize from "hooks/useWindowSize";
+import { Skeleton } from "@mui/material";
 
 type ResponseImage = {
     id: number;
@@ -26,10 +27,11 @@ export default function Images(){
     const {update} = useContext(UpdateContext);
 
     const [images, setImages] = useState<ResponseImage[]>([]);
+    const [isRequesting, setRQ] = useState(false);
     const [hasMoreImages, setHMI] = useState(true);
 
     function loadMoreImages(){
-        axios.get(`images?start=${images.length}&length=8`)
+        axios.get(`images?start=${images.length}&length=16`)
         .then((res)=>{
             setImages([...images, ...res.data as ResponseImage[]]);
         })
@@ -37,10 +39,12 @@ export default function Images(){
             console.log(err);
             setHMI(false);
         })
+        .finally(()=>{setRQ(false)})
     }
 
     useEffect(
         ()=>{
+            setRQ(true);
             const cancelToken = axios.CancelToken.source();
 
             axios.get('images?start=0&length=16', {cancelToken: cancelToken.token})
@@ -50,6 +54,7 @@ export default function Images(){
             .catch((err)=>{
                 console.log(err);
             })
+            .finally(()=>{setRQ(false); setHMI(true)})
 
             return ()=>cancelToken.cancel();
         },
@@ -62,14 +67,15 @@ export default function Images(){
 
             // console.log(e);
 
-            if(!hasMoreImages){
+            if(!hasMoreImages || isRequesting){
                 return;
             }
             const {scrollTop, clientHeight, scrollHeight} = e.target as HTMLDivElement;
 
             // console.log(scrollTop, clientHeight, scrollHeight);
 
-            if(scrollTop + clientHeight + 70 >= scrollHeight){
+            if(scrollTop + clientHeight + 700 >= scrollHeight){
+                setRQ(true);
                 loadMoreImages();
             }
         }}
@@ -84,6 +90,9 @@ export default function Images(){
                                         <Image key={`image-${imageIndex}`} {...image} />
                                     )
                                 })
+                            }
+                            {
+                                hasMoreImages && <SkeletonImage />
                             }
                             <span className="empty-image"></span>
                         </div>

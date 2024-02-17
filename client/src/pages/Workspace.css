@@ -50,7 +50,7 @@
     cursor: default;
 }
 
-.MuiAutocomplete-endAdornment{
+#workspace .MuiAutocomplete-endAdornment{
     top: 1px !important;
 }
 

@@ -56,3 +56,16 @@ export default function Image(props: ResponseImage) {
         </div>
     )
 }
+
+function SkeletonImage(){
+    return(
+        <div className="image">
+            <div>
+                <Skeleton variant="rectangular" width="100%" height="100%" animation="wave"/>
+            </div>
+            <p style={{height: '3.3em'}}></p>
+        </div>
+    )
+}
+
+export {SkeletonImage}
