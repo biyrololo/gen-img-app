@@ -105,7 +105,7 @@ export default function Form(){
             setLoadingTimer((prev)=>{
                 return prev + 1;
             })
-        }, 120)
+        }, 1050)
 
         axios.post('generate-image', 
             payload, {}
