@@ -15,87 +15,104 @@ def generate_img(prompt : str, negative_prompt : str, model : str, filename : st
     
     options = Options()
     options.add_argument('--headless')
+    print('options')
     with webdriver.Chrome(options=options) as driver:
+        print('driver')
         driver.get("https://app.prodia.com/")
-        sleep(5)
-
-        print('opened')
+        # sleep(5)
+        print('opening')
+        sleep(10)
 
         print('start')
 
         # select an option in html select element
 
         select = Select(driver.find_element(By.CSS_SELECTOR, "select"))
-
+        print('found select')
         # print(select)
 
         select.select_by_visible_text(model)
+        print('selected model')
 
         # print('selected')
 
         advanced_settings = driver.find_element(By.CSS_SELECTOR, "#app > div > div > div.generator.trending.mint-card > div.generator-actions > div.generator-actions-search > svg")
+        print('advanced_settings')
 
-        print(advanced_settings)
+        # print(advanced_settings)
 
         advanced_settings.click()
 
-        print('clicked')
+        print('clicked advanced_settings')
 
         # sleep(1)
 
         neg_promt = driver.find_element(By.CSS_SELECTOR, "#app > div > div > div.generator.trending.mint-card > div.advanced-settings.open > div.generator-settings > textarea")
+        print('neg_promt')
+        #print(neg_promt)
 
-        print(neg_promt)
-
-        my_neg_keys = 'Easynegative'
+        my_neg_keys = 'EasyNegative'
 
         neg_promt.send_keys(f"18+, r18, nsfw, porn, hentai, loli, lolicon, {my_neg_keys}, {negative_prompt}")
+        print('sent neg_promt')
 
         # select value on input range
 
         cfg_scale = driver.find_element(By.CSS_SELECTOR, "#app > div > div > div.generator.trending.mint-card > div.advanced-settings.open > div.generator-settings > div > div.c-field.slider-field.generator-settings-cfg > div > div > div > input")
-
-        print(cfg_scale)
+        print('cfg_scale')
+        # print(cfg_scale)
 
         cfg_scale.click()
+        print('clicked cfg_scale')
         for i in range(4):
             cfg_scale.send_keys(Keys.ARROW_RIGHT)
+            print('arrow right')
 
         steps = driver.find_element(By.CSS_SELECTOR, '#app > div > div > div.generator.trending.mint-card > div.advanced-settings.open > div.generator-settings > div > div.c-field.slider-field.generator-settings-steps > div > div > div > input')
-
+        print('steps')
         steps.click()
-
+        print('clicked steps')
         for i in range(15):
             steps.send_keys(Keys.ARROW_RIGHT)
+            print('arrow right')
 
-        sleep(5)
+        sleep(3)
 
         textarea = driver.find_element(By.ID, "prompt")
-
+        print('textarea')
 
         textarea.send_keys(prompt)
+        print('sent textarea')
 
         generate = driver.find_element(By.CSS_SELECTOR, generate_btn)
+        print('generate')
 
         generate.click()
+        print('clicked generate')
 
-        sleep(10)
+        sleep(15)
 
         result = driver.find_element(By.CSS_SELECTOR, '.results > .results-item:first-child')
+        print('result')
 
         result.click()
+        print('clicked result')
 
         sleep(5)
 
         img = driver.find_element(By.CSS_SELECTOR, 'img')
+        print('img')
 
         src = img.get_attribute('src')
+        print('src')
 
         # open src in new tab with selenium
 
         driver.get(src)
+        print('get src')
 
         img = driver.find_element(By.TAG_NAME, 'img')
+        print('img')
 
         return img.screenshot_as_base64
 
@@ -111,7 +128,23 @@ def generate_img(prompt : str, negative_prompt : str, model : str, filename : st
 #     await generate_img('blue hair', '', MODELS[0])
 #     await generate_img('red hair', '', MODELS[0])
 
+def test():
+    result = []
+    for model in MODELS:
+        res = f'{model}: '
+        try:
+            src = generate_img('blue hair', '', model)
+            res = f'{res} YES'
+        except Exception as e:
+            res = f'{res} NO'
+        finally:
+            result.append(res)
+    print('\n'.join(result), '\n', result)
+
 if __name__ == '__main__':
-    generate_img('blue hair', '', MODELS[0])
+    # test()
+    src = generate_img('blue hair', '', 'Dreamlike Anime V1')
+    import pyperclip
+    pyperclip.copy(src)
     # from asyncio import run
     # run(test())
