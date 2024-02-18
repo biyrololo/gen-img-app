@@ -24,6 +24,8 @@ export default function Images(){
     
     const COLUMNS_COUNT = getColumsCount(windowSize[0]);
 
+    const NEEDED_IMAGES = COLUMNS_COUNT * 5;
+
     const {update} = useContext(UpdateContext);
 
     const [images, setImages] = useState<ResponseImage[]>([]);
@@ -31,7 +33,7 @@ export default function Images(){
     const [hasMoreImages, setHMI] = useState(true);
 
     function loadMoreImages(){
-        axios.get(`images?start=${images.length}&length=16`)
+        axios.get(`images?start=${images.length}&length=${NEEDED_IMAGES}`)
         .then((res)=>{
             setImages([...images, ...res.data as ResponseImage[]]);
         })
@@ -47,7 +49,7 @@ export default function Images(){
             setRQ(true);
             const cancelToken = axios.CancelToken.source();
 
-            axios.get('images?start=0&length=16', {cancelToken: cancelToken.token})
+            axios.get(`images?start=0&length=${NEEDED_IMAGES}`, {cancelToken: cancelToken.token})
             .then((res)=>{
                 setImages(res.data as ResponseImage[]);
             })

@@ -105,7 +105,7 @@ export default function MobileWorkspace(){
             setLoadingTimer((prev)=>{
                 return prev + 1;
             })
-        }, 350)
+        }, 120);
 
         axios.post('generate-image', 
             payload, {}
