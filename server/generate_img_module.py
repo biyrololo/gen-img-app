@@ -9,12 +9,18 @@ generate_btn = '#app > div > div > div.generator.trending.mint-card > div.genera
 
 from time import sleep
 
+from fake_useragent import UserAgent
+
 MODELS = ["3 Guofeng3 V3.4","Absolute Reality V1.6","Absolute Reality V1.8.1","Am I Real V4.1","Analog V1","Anything V3","Anything V4.5","Anything V5","AbyssOrangeMix V3","Blazing Drive V10g","CetusMix Version35", "Counterfeit V3.0","CuteYukimix MidChapter3","CyberRealistic V3.3","Dalcefo V4","Deliberate V2","Deliberate V3","Dreamlike Anime V1","Dreamlike Diffusion V1","Dreamlike Photoreal V2","Dreamshaper 6 baked vae","Dreamshaper 7","Dreamshaper 8","Edge of Realism EOR V2.0","Eimis Anime Diffusion V1.0","Elldreth's Vivid","EpiCRealism Natural Sin RC1","I Cant Believe Its Not Photography Seco","Juggernaut Aftermath","Lofi V4","Lyriel V1.6","MajicMix Realistic V4","MechaMix V1.0","MeinaMix Meina V9","MeinaMix Meina V11","Neverending Dream V1.22","Openjourney V4","Pastel-Mix","Portrait+ V1","Protogen x3.4","Realistic Vision V1.4","Realistic Vision V2.0","Realistic Vision V4.0","Realistic Vision V5.0","Redshift Diffusion V1.0","ReV Animated V1.2.2","RunDiffusion FX 2.5D V1.0","RunDiffusion FX Photorealistic V1.0","SD V1.4","SD V1.5","SD V1.5 Inpainting","Shonin's Beautiful People V1.0","TheAlly's Mix II","Timeless V1","ToonYou Beta 6"]
 
 def generate_img(prompt : str, negative_prompt : str, model : str, filename : str = 'image') -> str:
     
     options = Options()
     options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    agent = UserAgent().chrome
+    options.add_argument(f'user-agent={agent}')
     print('options')
     with webdriver.Chrome(options=options) as driver:
         print('driver')
