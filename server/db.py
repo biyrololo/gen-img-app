@@ -2,6 +2,7 @@ import os
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 # DATABASE_URL = "postgresql://postgres:rootroot@localhost:5433/gen-images-site"
+DATABASE_URL = 'postgresql://admin:wQh6FuPDLLCl0B1aSKd0ukoEQEmeHTuw@dpg-cn8b2o21hbls73d9onp0-a.oregon-postgres.render.com/dbmain_hloj'
 from sqlalchemy import create_engine, text, Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -42,3 +43,11 @@ def get_db():
         yield db
     finally:
         db.close()
+
+# def remove_recent_images():
+#     db = Session()
+#     images_to_delete = db.query(Image).order_by(Image.id.desc()).limit(5).all()
+#     for image in images_to_delete:
+#         db.delete(image)
+#     db.commit()
+# remove_recent_images()

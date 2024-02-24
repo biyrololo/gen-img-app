@@ -216,7 +216,7 @@ export default function Form(){
                 {
                     isLoading ? 
                     <div id="loader">
-                        <Skeleton variant="rounded" width={400} height={400} 
+                        <Skeleton variant="rounded" width={'100%'} height={400} 
                         // animation="wave"
                         />
                         {/* <CircularProgress id="progress" variant="determinate" value={-loadingTimer * 100 / 40}/> */}

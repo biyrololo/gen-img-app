@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials, HTTPAuthorizationCredentials, HTTPBearer
 
+from fastapi_limiter import FastAPILimiter
+from fastapi_limiter.depends import RateLimiter
+
 from generate_img_module import generate_img
 
 from pydantic import BaseModel
@@ -20,7 +23,7 @@ API_KEY = getenv('API_KEY')
 app = FastAPI()
 
 origins = [
-    "*"
+    "gen-img-app.netlify.app",
 ]
 
 # Разрешить все источники
@@ -37,9 +40,9 @@ class ImageParams(BaseModel):
     negative_prompt: str
     model: str
 
-import base64
+# import base64
 
-lock = asyncio.Semaphore()
+# lock = asyncio.Semaphore()
 
 from time import sleep
 
