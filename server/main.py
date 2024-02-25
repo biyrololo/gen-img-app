@@ -19,6 +19,7 @@ import asyncio
 from os import getenv
 
 API_KEY = getenv('API_KEY')
+# API_KEY = 'a'
 
 app = FastAPI()
 

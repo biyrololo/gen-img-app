@@ -15,8 +15,10 @@ function App() {
   // console.log(process.env.REACT_APP_API_KEY);
 
   axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL;
+  // axios.defaults.baseURL = 'http://localhost:8000';
 
   axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.REACT_APP_API_KEY}`
+  // axios.defaults.headers.common['Authorization'] = `Bearer a`
 
   return (
     <BrowserRouter>
