@@ -27,8 +27,8 @@ def generate_img(prompt : str, negative_prompt : str, model : str, filename : st
         driver.get("https://app.prodia.com/")
         # sleep(5)
         print('opening')
-        # sleep(10)
-        sleep(6)
+        sleep(10)
+        # sleep(6)
 
         print('start')
 
@@ -83,7 +83,7 @@ def generate_img(prompt : str, negative_prompt : str, model : str, filename : st
             steps.send_keys(Keys.ARROW_RIGHT)
             print('arrow right')
 
-        # sleep(3)
+        sleep(3)
         # sleep(0.2)
 
         textarea = driver.find_element(By.ID, "prompt")
@@ -98,8 +98,8 @@ def generate_img(prompt : str, negative_prompt : str, model : str, filename : st
         generate.click()
         print('clicked generate')
 
-        # sleep(15)
-        sleep(12)
+        sleep(15)
+        # sleep(12)
 
         result = driver.find_element(By.CSS_SELECTOR, '.results > .results-item:first-child')
         print('result')
@@ -107,8 +107,8 @@ def generate_img(prompt : str, negative_prompt : str, model : str, filename : st
         result.click()
         print('clicked result')
 
-        # sleep(5)
-        sleep(2)
+        sleep(5)
+        # sleep(2)
 
         img = driver.find_element(By.CSS_SELECTOR, 'img')
         print('img')
