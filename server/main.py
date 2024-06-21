@@ -132,8 +132,7 @@ def get_images_endpoint(start: int = 0, length: int = 0, api_key: HTTPAuthorizat
     images = images[::-1]
 
     if start >= len(images):
-        return images
-        # return HTTPException(status_code=400, detail="Start index out of range")
+        raise HTTPException(status_code=400, detail="Start index out of range")
 
     if start + length > len(images):
         return images[start:]
